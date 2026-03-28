@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm create:*)",
+      "Bash(cp -r /Users/andrewgutierrez/personal-dev/website-scaffold/. /Users/andrewgutierrez/personal-dev/website/)",
+      "Bash(rm -rf /Users/andrewgutierrez/personal-dev/website-scaffold)",
+      "Bash(pnpm install:*)",
+      "Bash(curl -sL \"https://fonts.gstatic.com/s/dmsans/v15/rP2tp2ywxg089UriI5-g4vlH9VoD8CmcqZG40F9JadbnoEwAkJxhTmf3ZGMZpg.woff2\" -o \"DMSans-Light.woff2\")",
+      "Bash(curl -sL \"https://fonts.gstatic.com/s/dmsans/v15/rP2tp2ywxg089UriI5-g4vlH9VoD8CmcqZG40F9JadbnoEwAkJxhTmf3ZGMZpg.woff2\" -o \"DMSans-Regular.woff2\")",
+      "Bash(pnpm run:*)",
+      "Bash(pnpm add:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(xargs kill:*)",
+      "Bash(mkdir -p ~/Desktop/stubs)",
+      "Bash(sips -s format jpeg -Z 800 \"/Users/andrewgutierrez/Pictures/Photos Library.photoslibrary/originals/2/20E5F58F-A31D-4F0C-8DD2-F14ABE81A0B6.heic\" --out ~/Desktop/stubs/stub01.jpg)",
+      "Read(//Users/andrewgutierrez/Desktop/**)",
+      "Bash(qlmanage -t -s 800 -o ~/Desktop/stubs \"/Users/andrewgutierrez/Pictures/Photos Library.photoslibrary/originals/2/20E5F58F-A31D-4F0C-8DD2-F14ABE81A0B6.heic\")",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pkill -f \"astro dev\")",
+      "Bash(gh auth:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

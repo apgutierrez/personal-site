@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import MediaGrid from './MediaGrid.astro';
+
+const entries = await getCollection('drawings');
+const sorted = entries.sort((a, b) => a.data.order - b.data.order);
+const items = sorted.map((e) => ({
+  src: e.data.src,
+  alt: e.data.alt,
+  caption: e.data.medium ? `${e.data.caption ?? ''} — ${e.data.medium}`.trim().replace(/^— /, '') : e.data.caption,
+}));
+---
+
+<section id="drawing">
+  <div class="container">
+    <hr />
+    <span class="section-label">// drawing</span>
+    <h2 class="section-heading">Pen, ink & paper</h2>
+    <p class="section-intro">
+      Pen & ink mostly, some pencil and alcohol markers. Drawing slows me down in a way
+      that's hard to explain — it's one of the few things that gets me fully off a screen.
+    </p>
+    <MediaGrid items={items} gridId="drawings-grid" />
+  </div>
+</section>
+
+<style>
+  .section-heading {
+    margin-bottom: var(--space-4);
+  }
+
+  .section-intro {
+    color: var(--color-muted);
+    max-width: 520px;
+    margin-bottom: var(--space-10);
+  }
+</style>

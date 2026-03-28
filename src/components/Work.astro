@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import WorkCard from './WorkCard.astro';
+
+const entries = await getCollection('work');
+const sorted = entries.sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="work">
+  <div class="container">
+    <hr />
+    <span class="section-label">// work</span>
+    <h2 class="work-heading">What I've built</h2>
+    <p class="work-intro">
+      My background is in Enterprise SaaS and consulting. I spend most of my time at the
+      intersection of complex customer needs and the technical reality of building at scale.
+    </p>
+
+    <div class="work-grid">
+      {sorted.map((entry) => (
+        <WorkCard
+          label={entry.data.label}
+          title={entry.data.title}
+          period={entry.data.period}
+          bullets={entry.data.bullets}
+          tags={entry.data.tags}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .work-heading {
+    margin-bottom: var(--space-4);
+  }
+
+  .work-intro {
+    color: var(--color-muted);
+    max-width: 580px;
+    margin-bottom: var(--space-12);
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 768px) {
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

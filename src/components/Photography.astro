@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import MediaGrid from './MediaGrid.astro';
+
+const entries = await getCollection('photos');
+const sorted = entries.sort((a, b) => a.data.order - b.data.order);
+const items = sorted.map((e) => ({
+  src: e.data.src,
+  alt: e.data.alt,
+  caption: e.data.caption,
+}));
+---
+
+<section id="photos">
+  <div class="container">
+    <hr />
+    <span class="section-label">// photography</span>
+    <h2 class="section-heading">Street & urban</h2>
+    <p class="section-intro">
+      I shoot mostly on the street — cities, people, whatever catches my eye when I'm
+      moving through a place. Point the camera, see what happens.
+    </p>
+    <MediaGrid items={items} gridId="photos-grid" />
+  </div>
+</section>
+
+<style>
+  .section-heading {
+    margin-bottom: var(--space-4);
+  }
+
+  .section-intro {
+    color: var(--color-muted);
+    max-width: 520px;
+    margin-bottom: var(--space-10);
+  }
+</style>

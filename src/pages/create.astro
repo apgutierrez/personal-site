@@ -1,0 +1,49 @@
+---
+import InnerLayout from '../layouts/InnerLayout.astro';
+import { getCollection } from 'astro:content';
+import MediaGrid from '../components/MediaGrid.astro';
+
+const photos = await getCollection('photos');
+const drawings = await getCollection('drawings');
+
+const photoItems = photos
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((e) => ({ src: e.data.src, alt: e.data.alt, caption: e.data.caption }));
+
+const drawingItems = drawings
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((e) => ({
+    src: e.data.src,
+    alt: e.data.alt,
+    caption: e.data.medium
+      ? `${e.data.caption ?? ''} — ${e.data.medium}`.trim().replace(/^— /, '')
+      : e.data.caption,
+  }));
+
+const items = [...photoItems, ...drawingItems];
+---
+
+<InnerLayout title="Create — Andrew Gutierrez" description="Photography and drawings.">
+  <h1 class="page-title">What I make</h1>
+  <p class="page-intro">
+    Street photography and pen & ink. Different tools, same impulse — slow down and pay attention.
+  </p>
+
+  <MediaGrid items={items} gridId="create-grid" />
+</InnerLayout>
+
+<style>
+  .page-title {
+    font-size: var(--text-3xl);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-4);
+  }
+
+  .page-intro {
+    color: var(--color-muted);
+    max-width: 520px;
+    margin-bottom: var(--space-10);
+    line-height: 1.75;
+  }
+</style>

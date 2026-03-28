@@ -1,0 +1,41 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  period: string;
+  bullets: string[];
+  tags: string[];
+}
+
+const { label, title, period, bullets, tags } = Astro.props;
+---
+
+<article class="work-card">
+  <div class="work-card-header">
+    <span class="work-card-label">{label}</span>
+    <span class="work-card-period mono muted">{period}</span>
+  </div>
+  <h3 class="work-card-title">{title}</h3>
+  <ul class="work-card-bullets">
+    {bullets.map((b) => <li>{b}</li>)}
+  </ul>
+  <div class="work-card-tags">
+    {tags.map((t) => <span class="tag">{t}</span>)}
+  </div>
+</article>
+
+<style>
+  .work-card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .work-card-period {
+    font-size: var(--text-xs);
+    flex-shrink: 0;
+  }
+</style>

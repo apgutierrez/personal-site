@@ -1,0 +1,164 @@
+---
+const chapters = [
+  {
+    city: 'New York',
+    years: '2008–2015',
+    id: 'chapter-nyc',
+    note: 'Seven years of shows. The stubs stacked up.',
+    tag: '35 stubs',
+    current: false,
+  },
+  {
+    city: 'Seattle',
+    years: '2015–2018',
+    id: 'chapter-seattle-1',
+    note: 'Went west. Found the mountains. Got a camera.',
+    tag: null,
+    current: false,
+  },
+  {
+    city: 'Oakland',
+    years: '2018–2020',
+    id: 'chapter-oakland',
+    note: 'A parenthesis.',
+    tag: null,
+    current: false,
+  },
+  {
+    city: 'Truckee',
+    years: '2020–2021',
+    id: 'chapter-truckee',
+    note: 'Skiing got serious. Drew more. Moved slower.',
+    tag: null,
+    current: false,
+  },
+  {
+    city: 'Seattle',
+    years: '2021–',
+    id: 'chapter-seattle-2',
+    note: 'Back. First daughter, April 2022.',
+    tag: null,
+    current: true,
+  },
+];
+---
+
+<div class="timeline-page">
+  <div class="timeline">
+    {chapters.map((ch, i) => (
+      <div class="entry" id={ch.id}>
+        <!-- Track column: line + dot -->
+        <div class="track">
+          <div class:list={['dot', { current: ch.current }]}></div>
+          {i < chapters.length - 1 && <div class="line"></div>}
+        </div>
+
+        <!-- Content column -->
+        <div class="content">
+          <div class="entry-header">
+            <span class="entry-city">{ch.city}</span>
+            <span class="entry-years mono muted">{ch.years}</span>
+          </div>
+          <p class="entry-note muted">{ch.note}</p>
+          {ch.tag && <span class="entry-tag mono">{ch.tag}</span>}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .timeline-page {
+    padding-bottom: var(--space-16);
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Each entry: track col + content col */
+  .entry {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: var(--space-6);
+  }
+
+  /* Track column: dot on top, line below */
+  .track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-border);
+    flex-shrink: 0;
+    margin-top: 5px; /* aligns with text baseline */
+  }
+
+  .dot.current {
+    background: var(--color-accent);
+  }
+
+  .line {
+    flex: 1;
+    width: 1px;
+    background: var(--color-border);
+    margin-top: var(--space-2);
+    margin-bottom: 0;
+    min-height: 40px;
+  }
+
+  /* Content */
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-bottom: var(--space-10);
+  }
+
+  .entry:last-child .content {
+    padding-bottom: 0;
+  }
+
+  .entry-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+
+  .entry-city {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--color-ink);
+    line-height: 1.2;
+  }
+
+  .entry-years {
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+  }
+
+  .entry-note {
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    max-width: 380px;
+  }
+
+  .entry-tag {
+    display: inline-block;
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 2px var(--space-2);
+    margin-top: var(--space-1);
+    letter-spacing: 0.04em;
+    width: fit-content;
+  }
+</style>

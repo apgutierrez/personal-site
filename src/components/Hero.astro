@@ -1,0 +1,81 @@
+---
+---
+
+<section class="hero" id="hero">
+  <div class="container hero-inner">
+    <span class="section-label">// hello.</span>
+    <h1 class="hero-name">Andrew Gutierrez</h1>
+    <p class="hero-tagline">
+      PM at Adobe. Dad. Occasional photographer. Always outside.<span class="cursor">|</span>
+    </p>
+    <a href="#about" class="hero-scroll" aria-label="Scroll to about">↓</a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 56px; /* nav height */
+  }
+
+  .hero-inner {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+
+  .hero-name {
+    font-size: var(--text-5xl);
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    color: var(--color-ink);
+    margin-bottom: var(--space-4);
+    line-height: 1.1;
+  }
+
+  .hero-tagline {
+    font-size: var(--text-xl);
+    font-weight: 300;
+    color: var(--color-muted);
+    line-height: 1.5;
+    max-width: 520px;
+  }
+
+  .hero-scroll {
+    display: inline-block;
+    margin-top: var(--space-12);
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    color: var(--color-border);
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    animation: float 2.5s ease-in-out infinite;
+  }
+
+  .hero-scroll:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(6px); }
+  }
+
+  @media (max-width: 768px) {
+    .hero-name {
+      font-size: var(--text-4xl);
+    }
+
+    .hero-tagline {
+      font-size: var(--text-lg);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-name {
+      font-size: 2rem;
+    }
+  }
+</style>

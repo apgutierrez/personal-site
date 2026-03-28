@@ -1,0 +1,155 @@
+/* ─── Fonts ─────────────────────────────────────────────────── */
+/* DM Sans + IBM Plex Mono loaded via <link> in BaseLayout */
+
+/* ─── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+/* ─── Design Tokens ──────────────────────────────────────────── */
+:root {
+  /* Colors */
+  --color-bg:      #F5F0E8;
+  --color-surface: #EDE8DC;
+  --color-ink:     #1C1A17;
+  --color-muted:   #7A7060;
+  --color-accent:  #C25E3A;
+  --color-border:  #D4CEC0;
+  --color-accent-dim: rgba(194, 94, 58, 0.1);
+
+  /* Typography */
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  2rem;
+  --text-4xl:  2.75rem;
+  --text-5xl:  3.5rem;
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Layout */
+  --max-width: 860px;
+  --section-pad-y: var(--space-24);
+  --section-pad-x: var(--space-8);
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--color-ink);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Typography ─────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  line-height: 1.2;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+h1 { font-size: var(--text-4xl); font-weight: 300; letter-spacing: -0.02em; }
+h2 { font-size: var(--text-3xl); font-weight: 400; letter-spacing: -0.01em; }
+h3 { font-size: var(--text-xl);  font-weight: 500; }
+h4 { font-size: var(--text-lg);  font-weight: 500; }
+
+p {
+  color: var(--color-ink);
+  line-height: 1.75;
+}
+
+a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease, color 0.15s ease;
+}
+
+a:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+/* ─── Layout ─────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-pad-x);
+}
+
+section {
+  padding: var(--section-pad-y) 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ─── Utility ────────────────────────────────────────────────── */
+.mono {
+  font-family: var(--font-mono);
+}
+
+.muted {
+  color: var(--color-muted);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --text-4xl: 2.25rem;
+    --text-3xl: 1.75rem;
+    --section-pad-y: var(--space-16);
+    --section-pad-x: var(--space-6);
+  }
+
+  h1 { font-size: var(--text-4xl); }
+  h2 { font-size: var(--text-3xl); }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --text-4xl: 1.875rem;
+    --section-pad-x: var(--space-4);
+  }
+}

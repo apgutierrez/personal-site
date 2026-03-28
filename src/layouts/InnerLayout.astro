@@ -1,0 +1,114 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="inner-page">
+    <!-- AG monogram -->
+    <span class="monogram mono">AG</span>
+
+    <header class="inner-header">
+      <a href="/" class="back-link mono">← ag</a>
+    </header>
+
+    <main class="inner-main">
+      <slot />
+    </main>
+
+    <footer class="inner-footer">
+      <p class="mono muted">// andrew gutierrez — {new Date().getFullYear()}</p>
+    </footer>
+  </div>
+</BaseLayout>
+
+<style>
+  .inner-page {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 var(--space-8);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* AG monogram */
+  .monogram {
+    position: fixed;
+    top: var(--space-6);
+    right: var(--space-8);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    opacity: 0.5;
+    user-select: none;
+    z-index: 1;
+  }
+
+  .inner-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-6) 0;
+    margin-bottom: var(--space-12);
+  }
+
+  .back-link {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+  }
+
+.inner-main {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+  }
+
+  .inner-footer {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-8) 0;
+    margin-top: var(--space-16);
+  }
+
+  .inner-footer p {
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .inner-page {
+      padding: 0 var(--space-4);
+    }
+
+    .inner-header {
+      padding: var(--space-4) 0;
+      margin-bottom: var(--space-8);
+    }
+
+    .monogram {
+      display: none;
+    }
+  }
+</style>

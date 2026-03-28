@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  <div class="canvas">
+    <!-- AG monogram -->
+    <span class="monogram mono">AG</span>
+
+    <div class="center-stack">
+      <!-- Photo card -->
+      <div class="photo-card">
+        <div class="photo-placeholder"></div>
+      </div>
+
+      <!-- Bio text -->
+      <div class="bio-card">
+        <p class="bio-text">
+          I'm Andrew Gutierrez — <a href="/work">PM</a> at Adobe, dad, and someone who
+          spends a lot of time outside. I shoot and draw — <a href="/create">street photography
+          and pen &amp; ink</a> — ski, hike, and just
+          started climbing. I grew up on the early internet.{' '}
+          <a href="mailto:apgutierrez@gmail.com" class="say-hi">Say hi →</a>
+        </p>
+
+        <!-- Easter egg orb — links to /chapters -->
+        <a href="/chapters" class="easter-egg" aria-label="chapters" tabindex="0">
+          <span class="egg-orb"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .canvas {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg);
+    overflow: hidden;
+  }
+
+  /* AG monogram */
+  .monogram {
+    position: absolute;
+    top: var(--space-6);
+    right: var(--space-8);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    opacity: 0.5;
+    user-select: none;
+  }
+
+  /* Centered column */
+  .center-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-8);
+    width: 100%;
+    max-width: 400px;
+    padding: 0 var(--space-6);
+  }
+
+  /* Photo card */
+  .photo-card {
+    width: 180px;
+    height: 220px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 2px 12px rgba(28, 26, 23, 0.06);
+    overflow: hidden;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--color-border);
+    opacity: 0.5;
+  }
+
+  /* Bio card */
+  .bio-card {
+    width: 100%;
+    text-align: center;
+  }
+
+  .bio-text {
+    font-size: var(--text-lg);
+    line-height: 1.8;
+    color: var(--color-ink);
+    font-weight: 300;
+  }
+
+  .bio-text a {
+    color: var(--color-ink);
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 3px;
+    font-weight: 400;
+  }
+
+  .bio-text a:hover {
+    color: var(--color-accent);
+  }
+
+  .say-hi {
+    white-space: nowrap;
+  }
+
+  /* Easter egg — single gradient orb */
+  .easter-egg {
+    display: inline-flex;
+    justify-content: center;
+    margin-top: var(--space-6);
+    text-decoration: none;
+  }
+
+  .egg-orb {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 160deg,
+      #0e6b5e 0deg,
+      #1a0a4e 80deg,
+      #4a1a8a 130deg,
+      #c25820 190deg,
+      #e07820 230deg,
+      #c25820 270deg,
+      #4a1a8a 310deg,
+      #0e6b5e 360deg
+    );
+    opacity: 0.5;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .easter-egg:hover .egg-orb {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  @media (max-width: 480px) {
+    .bio-text {
+      font-size: var(--text-base);
+    }
+
+    .photo-card {
+      width: 140px;
+      height: 175px;
+    }
+  }
+</style>

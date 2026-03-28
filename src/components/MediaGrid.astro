@@ -1,0 +1,77 @@
+---
+interface MediaItem {
+  src: string;
+  alt: string;
+  caption?: string;
+  medium?: string;
+}
+
+interface Props {
+  items: MediaItem[];
+  gridId: string;
+}
+
+const { items, gridId } = Astro.props;
+---
+
+<div class="media-grid" id={gridId}>
+  {items.map((item, i) => (
+    <button
+      class="media-grid-item"
+      data-index={i}
+      data-grid={gridId}
+      aria-label={item.caption ?? item.alt}
+      type="button"
+    >
+      <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+      {item.caption && (
+        <span class="media-grid-caption">{item.caption}</span>
+      )}
+    </button>
+  ))}
+</div>
+
+<!-- Lightbox dialog -->
+<dialog class="lightbox" id={`${gridId}-lightbox`} aria-modal="true" aria-label="Image lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id={`${gridId}-close`} aria-label="Close lightbox">[ esc ]</button>
+    <img class="lightbox-img" src="" alt="" id={`${gridId}-img`} />
+    <p class="lightbox-caption" id={`${gridId}-caption`}></p>
+  </div>
+</dialog>
+
+<script define:vars={{ gridId, items }}>
+  const grid = document.getElementById(gridId);
+  const dialog = document.getElementById(`${gridId}-lightbox`);
+  const imgEl = document.getElementById(`${gridId}-img`);
+  const captionEl = document.getElementById(`${gridId}-caption`);
+  const closeBtn = document.getElementById(`${gridId}-close`);
+
+  function openLightbox(index) {
+    const item = items[index];
+    imgEl.src = item.src;
+    imgEl.alt = item.alt;
+    captionEl.textContent = item.caption ?? '';
+    dialog.showModal();
+    closeBtn.focus();
+  }
+
+  function closeLightbox() {
+    dialog.close();
+    imgEl.src = '';
+  }
+
+  grid.querySelectorAll('.media-grid-item').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      openLightbox(Number(btn.dataset.index));
+    });
+  });
+
+  closeBtn.addEventListener('click', closeLightbox);
+
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) closeLightbox();
+  });
+
+  dialog.addEventListener('cancel', closeLightbox);
+</script>

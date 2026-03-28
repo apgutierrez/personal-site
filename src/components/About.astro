@@ -1,0 +1,143 @@
+---
+---
+
+<section id="about">
+  <div class="container">
+    <hr />
+    <div class="about-inner">
+      <div class="about-bio">
+        <span class="section-label">// about</span>
+        <h2>A little about me</h2>
+        <p>
+          I'm a PM at Adobe leading Enterprise features for Adobe Express. Before that,
+          years in consulting and Enterprise SaaS — which basically means I've spent a lot
+          of time figuring out what people actually need versus what they asked for.
+        </p>
+        <p>
+          I'm a dad to two girls, which mostly means I'm outnumbered and okay with it.
+          When I'm not working, I'm usually outside — skiing, hiking, or just getting into
+          climbing — making something with a pen, or chasing a shot with my camera.
+        </p>
+        <p>
+          I grew up on the early internet. The kind with slow modems, blinking text, and
+          the wild feeling that anyone could put anything on a page. That energy still
+          shapes how I think about building things.
+        </p>
+      </div>
+
+      <div class="about-facts">
+        <dl class="facts-list">
+          <div class="fact-row">
+            <dt>now</dt>
+            <dd>PM Manager, Adobe Express</dd>
+          </div>
+          <div class="fact-row">
+            <dt>focus</dt>
+            <dd>Enterprise + B2B SaaS</dd>
+          </div>
+          <div class="fact-row">
+            <dt>bg</dt>
+            <dd>Consulting → Product</dd>
+          </div>
+          <div class="fact-row">
+            <dt>outside</dt>
+            <dd>Skiing, hiking, climbing</dd>
+          </div>
+          <div class="fact-row">
+            <dt>making</dt>
+            <dd>Photos + pen & ink</dd>
+          </div>
+          <div class="fact-row">
+            <dt>also</dt>
+            <dd>Dad × 2</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  hr {
+    margin-bottom: var(--space-16);
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: var(--space-16);
+    align-items: start;
+  }
+
+  .about-bio h2 {
+    margin-bottom: var(--space-6);
+  }
+
+  .about-bio p + p {
+    margin-top: var(--space-4);
+  }
+
+  .facts-list {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .fact-row {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-border);
+    align-items: baseline;
+  }
+
+  .fact-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .fact-row:first-child {
+    padding-top: 0;
+  }
+
+  dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    letter-spacing: 0.04em;
+  }
+
+  dd {
+    font-size: var(--text-sm);
+    color: var(--color-ink);
+    font-weight: 400;
+  }
+
+  @media (max-width: 768px) {
+    .about-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+
+    .facts-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fact-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+      border-bottom: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+    }
+
+    .fact-row:nth-child(2n) {
+      border-right: none;
+    }
+  }
+</style>
