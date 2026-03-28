@@ -1,56 +1,100 @@
 ---
 import InnerLayout from '../layouts/InnerLayout.astro';
-import { getCollection } from 'astro:content';
-import WorkCard from '../components/WorkCard.astro';
 
-const entries = await getCollection('work');
-const sorted = entries.sort((a, b) => a.data.order - b.data.order);
+const roles = [
+  {
+    years: '2022 – Present',
+    lines: [
+      {
+        parts: [
+          { text: 'Adobe Express', href: 'https://www.adobe.com/express/' },
+          { text: '. ' },
+          { text: 'Templates & Brand Governance', href: 'https://helpx.adobe.com/express/using/work-with-templates.html' },
+          { text: '. Helping teams scale content creation.' },
+        ],
+      },
+    ],
+  },
+  {
+    years: '2018 – 2022',
+    lines: [
+      {
+        parts: [
+          { text: 'Product for Experience Platform. Identity. ' },
+          { text: 'Segment Match', href: 'https://experienceleague.adobe.com/docs/experience-platform/segmentation/ui/segment-match/overview.html' },
+          { text: '.' },
+        ],
+      },
+    ],
+  },
+  {
+    years: '2014 – 2018',
+    lines: [
+      {
+        parts: [
+          { text: 'Consulting. Clients: American Express, NFL, T-Mobile & more.' },
+        ],
+      },
+    ],
+  },
+];
 ---
 
-<InnerLayout title="Work — Andrew Gutierrez" description="Career highlights and product work.">
-  <h1 class="page-title">Work</h1>
-  <p class="page-intro">
-    Enterprise SaaS and consulting — mostly figuring out what people actually need
-    versus what they asked for.
-  </p>
-
-  <div class="work-grid">
-    {sorted.map((entry) => (
-      <WorkCard
-        label={entry.data.label}
-        title={entry.data.title}
-        period={entry.data.period}
-        bullets={entry.data.bullets}
-        tags={entry.data.tags}
-      />
+<InnerLayout title="Work — Andrew Gutierrez" description="Career history.">
+  <div class="resume">
+    {roles.map((role) => (
+      <div class="role">
+        <span class="years mono muted">{role.years}</span>
+        <p class="role-line">
+          {role.lines[0].parts.map((part) =>
+            part.href
+              ? <a href={part.href} target="_blank" rel="noopener">{part.text}</a>
+              : <span>{part.text}</span>
+          )}
+        </p>
+      </div>
     ))}
   </div>
 </InnerLayout>
 
 <style>
-  .page-title {
-    font-size: var(--text-3xl);
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    margin-bottom: var(--space-4);
+  .resume {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    padding-top: var(--space-8);
   }
 
-  .page-intro {
+  .role {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .years {
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+  }
+
+  .role-line {
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: var(--color-ink);
+    max-width: 480px;
+  }
+
+  .role-line a {
+    color: var(--color-ink);
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 3px;
+    font-weight: 400;
+  }
+
+  .role-line a:hover {
+    color: var(--color-accent);
+  }
+
+  .role-line span {
     color: var(--color-muted);
-    max-width: 520px;
-    margin-bottom: var(--space-12);
-    line-height: 1.75;
-  }
-
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
-  }
-
-  @media (max-width: 640px) {
-    .work-grid {
-      grid-template-columns: 1fr;
-    }
   }
 </style>
