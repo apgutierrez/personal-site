@@ -15,11 +15,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <!-- Bio text -->
       <div class="bio-card">
-        <p class="bio-text">
-          I'm Andrew — <a href="/work">Product</a> at Adobe, husband, dad, and someone trying to
-          spend more time outside. I'm happy on snow and sometimes <a href="/create">take pictures and draw</a>. I miss the early internet.{' '}
-          <a href="mailto:apgutierrez@gmail.com" class="say-hi">Say hi →</a>
-        </p>
+        <p class="bio-intro">I'm Andrew. Here's what I'm currently up to.</p>
+        <ul class="bio-list">
+          <li>Girl dad · x2</li>
+          <li>Indulging in <a href="/create">analog</a></li>
+          <li>Sucking at <a href="https://www.castleclimbingclub.com/" target="_blank" rel="noopener">climbing</a></li>
+          <li>Product at <a href="/work">Adobe</a></li>
+        </ul>
+        <a href="mailto:apgutierrez@gmail.com" class="say-hi">Say hi →</a>
 
         <!-- Easter egg orb — links to /chapters -->
         <a href="/chapters" class="easter-egg" aria-label="chapters" tabindex="0">
@@ -87,36 +90,63 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   /* Bio card */
   .bio-card {
     width: 100%;
-    text-align: center;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
   }
 
-  .bio-text {
-    font-size: var(--text-lg);
-    line-height: 1.8;
-    color: var(--color-ink);
+  .bio-intro {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .bio-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .bio-list li {
+    font-size: var(--text-base);
+    font-weight: 300;
+    color: var(--color-muted);
+    line-height: 1.6;
+  }
+
+  .bio-list a {
+    color: var(--color-muted);
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 3px;
     font-weight: 300;
   }
 
-  .bio-text a {
-    color: var(--color-ink);
-    text-decoration-color: var(--color-accent);
-    text-underline-offset: 3px;
-    font-weight: 400;
-  }
-
-  .bio-text a:hover {
+  .bio-list a:hover {
     color: var(--color-accent);
   }
 
   .say-hi {
-    white-space: nowrap;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.15s ease;
+  }
+
+  .say-hi:hover {
+    color: var(--color-accent);
   }
 
   /* Easter egg — single gradient orb */
   .easter-egg {
     display: inline-flex;
-    justify-content: center;
-    margin-top: var(--space-6);
+    justify-content: flex-start;
+    margin-top: var(--space-2);
     text-decoration: none;
   }
 
