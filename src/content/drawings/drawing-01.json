@@ -1,7 +1,6 @@
 {
-  "src": "https://picsum.photos/seed/drawing1/900/900",
+  "src": "/photos/drawing 1.jpg",
   "alt": "Drawing",
-  "caption": "placeholder — swap with your own",
-  "medium": "pen & ink",
+  "caption": "pen",
   "order": 1
 }
