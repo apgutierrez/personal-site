@@ -1,49 +1,153 @@
 ---
 import InnerLayout from '../layouts/InnerLayout.astro';
 import { getCollection } from 'astro:content';
-import MediaGrid from '../components/MediaGrid.astro';
 
 const photos = await getCollection('photos');
 const drawings = await getCollection('drawings');
 
-const photoItems = photos
-  .sort((a, b) => a.data.order - b.data.order)
-  .map((e) => ({ src: e.data.src, alt: e.data.alt, caption: e.data.caption }));
-
-const drawingItems = drawings
-  .sort((a, b) => a.data.order - b.data.order)
-  .map((e) => ({
+const items = [
+  ...photos.sort((a, b) => a.data.order - b.data.order).map((e) => ({
+    src: e.data.src,
+    alt: e.data.alt,
+    caption: e.data.caption,
+  })),
+  ...drawings.sort((a, b) => a.data.order - b.data.order).map((e) => ({
     src: e.data.src,
     alt: e.data.alt,
     caption: e.data.medium
       ? `${e.data.caption ?? ''} — ${e.data.medium}`.trim().replace(/^— /, '')
       : e.data.caption,
-  }));
-
-const items = [...photoItems, ...drawingItems];
+  })),
+];
 ---
 
 <InnerLayout title="Create — Andrew Gutierrez" description="Photography and drawings.">
-  <h1 class="page-title">What I make</h1>
-  <p class="page-intro">
-    Street photography and pen & ink. Different tools, same impulse — slow down and pay attention.
-  </p>
+  <div class="gallery">
+    <button class="arrow arrow-left" id="prev" aria-label="Previous">←</button>
 
-  <MediaGrid items={items} gridId="create-grid" />
+    <div class="gallery-stage">
+      {items.map((item, i) => (
+        <div class:list={['gallery-slide', { active: i === 0 }]} data-index={i}>
+          <img src={item.src} alt={item.alt} loading={i === 0 ? 'eager' : 'lazy'} />
+        </div>
+      ))}
+    </div>
+
+    <button class="arrow arrow-right" id="next" aria-label="Next">→</button>
+  </div>
+
+  <div class="gallery-meta">
+    <span class="gallery-caption" id="caption">{items[0]?.caption ?? ''}</span>
+    <span class="gallery-counter mono muted"><span id="current">1</span> / {items.length}</span>
+  </div>
 </InnerLayout>
 
-<style>
-  .page-title {
-    font-size: var(--text-3xl);
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    margin-bottom: var(--space-4);
+<script define:vars={{ total: items.length, captions: items.map(i => i.caption ?? '') }}>
+  let current = 0;
+  const slides = document.querySelectorAll('.gallery-slide');
+  const captionEl = document.getElementById('caption');
+  const currentEl = document.getElementById('current');
+
+  function go(index) {
+    slides[current].classList.remove('active');
+    current = (index + total) % total;
+    slides[current].classList.add('active');
+    captionEl.textContent = captions[current];
+    currentEl.textContent = current + 1;
   }
 
-  .page-intro {
+  document.getElementById('prev').addEventListener('click', () => go(current - 1));
+  document.getElementById('next').addEventListener('click', () => go(current + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') go(current - 1);
+    if (e.key === 'ArrowRight') go(current + 1);
+  });
+</script>
+
+<style>
+  .gallery {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    width: 100%;
+    margin-top: var(--space-8);
+  }
+
+  .gallery-stage {
+    flex: 1;
+    position: relative;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background: var(--color-surface);
+    border-radius: 4px;
+  }
+
+  .gallery-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .gallery-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .gallery-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .arrow {
+    flex-shrink: 0;
+    font-size: var(--text-lg);
     color: var(--color-muted);
-    max-width: 520px;
-    margin-bottom: var(--space-10);
-    line-height: 1.75;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-2);
+    line-height: 1;
+    transition: color 0.15s ease;
+    font-family: var(--font-mono);
+    user-select: none;
+  }
+
+  .arrow:hover {
+    color: var(--color-accent);
+  }
+
+  .gallery-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: var(--space-3);
+    padding: 0 calc(var(--space-lg, 0px) + 2.5rem);
+  }
+
+  .gallery-caption {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    font-weight: 300;
+  }
+
+  .gallery-counter {
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 640px) {
+    .gallery {
+      gap: var(--space-2);
+    }
+
+    .arrow {
+      font-size: var(--text-base);
+      padding: var(--space-1);
+    }
   }
 </style>
